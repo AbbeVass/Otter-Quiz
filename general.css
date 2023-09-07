@@ -11,6 +11,12 @@ main {
 
 .center-img {
     border-radius: 50px;
+    width: max(750px);
+}
+@media (max-width: 800px) {
+    .center-img {
+        width: 500px;
+    }
 }
 
 .continue-btn {

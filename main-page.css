@@ -1,16 +1,8 @@
 .main-page-img {
-    width: 750px;
     display: block;
 }
 
 .headline {
     margin: 50px 0px 30px;
     font-weight: bolder;
-}
-
-.start-btn {
-    cursor: pointer;
-}
-.start-btn:hover {
-    background-color: rgb(50, 0, 200);
 }
