@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 7px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body style="margin: 30px; display: flex; justify-content: space-between;">
+    <div class="right-section">
+        <h4 style="margin-bottom: 10px;">Fråga:</h4>
+        <textarea id="question" cols="30" rows="3"></textarea>
+        <h4 style="margin-bottom: 10px;">Svarsalternativ:</h4>
+        <div id="answers">
+            <label>1</label>
+            <input type="text" id="answer0">
+        </div>
+        <button onclick="addAnswer()" style="margin-top: 5px;">Lägg till svarsalternativ</button>
+        <br>
+        <label>Rätt svar:</label>
+        <select id="correctAnswer" style="margin-top: 20px;">
+            <option value="0">1</option>
+        </select>
+        <br>
+        <button onclick="" style="margin-top: 20px;">Spara fråga</button>
+    </div>
+    <div class="left-section">
+
+    </div>
+
+    <script>
+        let answerNum = 0;
+
+        function addAnswer() {
+            answerNum++;
+            document.getElementById("answers").innerHTML += `<br><label>${answerNum+1}</label>\n<input type="text" id="answer${answerNum}">`;
+            document.getElementById("correctAnswer").innerHTML += `<option value="${answerNum}">${answerNum+1}</option>`;
+        }
+
+
+
+        //Lägg inte till svarsalternativ om inputen är tom
+
+
+        const jsonData = { key1: 'value1', key2: 'value2' };
+        const jsonBlob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
+        const url = URL.createObjectURL(jsonBlob);
+        
+        // Create a download link
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'questions.json';
+        a.textContent = 'Download JSON';
+        
+        // Append the link to the DOM
+        document.body.appendChild(a);
+    </script>
+</body>
+</html>
