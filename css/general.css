@@ -11,11 +11,11 @@ main {
 
 .center-img {
     border-radius: 50px;
-    width: max(750px);
+    width: max(500px);
 }
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     .center-img {
-        width: 500px;
+        width: 300px;
     }
 }
 
