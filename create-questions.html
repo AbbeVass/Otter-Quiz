@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        input {
+        .answer {
             margin-bottom: 7px;
             width: 200px;
         }
+        .answer-points { width: 50px; }
     </style>
 </head>
 <body style="margin: 30px; display: flex; justify-content: space-between;">
@@ -16,32 +17,86 @@
         <h4 style="margin-bottom: 10px;">Fråga:</h4>
         <textarea id="question" cols="30" rows="3"></textarea>
         <h4 style="margin-bottom: 10px;">Svarsalternativ:</h4>
-        <div id="answers">
+        <div id="answersContainer">
             <label>1</label>
-            <input type="text" id="answer0">
+            <input type="text" id="answer0" class="answer">
+            <label>Poäng:</label>
+            <input type="number" id="answer0Points" class="answer-points">
         </div>
         <button onclick="addAnswer()" style="margin-top: 5px;">Lägg till svarsalternativ</button>
         <br>
-        <label>Rätt svar:</label>
-        <select id="correctAnswer" style="margin-top: 20px;">
-            <option value="0">1</option>
-        </select>
+        <button onclick="saveQuestion()" style="margin-top: 20px;">Spara fråga</button>
         <br>
-        <button onclick="" style="margin-top: 20px;">Spara fråga</button>
     </div>
     <div class="left-section">
-
+        <h2>Frågor:</h2>
+        <div id="questionsPreview">
+            <!--Previewing questions and answers here-->
+        </div>
     </div>
 
     <script>
+        let qData = [];
+        let answersArray = [];
+        let pointsArray = [];
         let answerNum = 0;
 
-        function addAnswer() {
-            answerNum++;
-            document.getElementById("answers").innerHTML += `<br><label>${answerNum+1}</label>\n<input type="text" id="answer${answerNum}">`;
-            document.getElementById("correctAnswer").innerHTML += `<option value="${answerNum}">${answerNum+1}</option>`;
+        function saveAnswers() {
+            answersArray = [];
+            pointsArray = [];
+
+            const answersAndPoints = document.getElementById("answersContainer").querySelectorAll("input");
+            for (let i = 0; i < answersAndPoints.length; i += 2) {
+                answersArray.push(answersAndPoints[i].value);
+                pointsArray.push(answersAndPoints[i+1].value);
+            }
         }
 
+        function addAnswer() {
+            saveAnswers();
+            answerNum++;
+            document.getElementById("answersContainer").innerHTML += `
+            <br>
+            <label>${answerNum+1}</label>
+            <input type="text" id="answer${answerNum}" class="answer">
+            <label>Poäng:</label>
+            <input type="number" id="answer${answerNum}Points" class="answer-points">`;
+
+            //Add back answer options and points
+            for (let i = 0; i < answersArray.length; i++) {
+                document.getElementById("answer"+i).value = answersArray[i];
+                document.getElementById("answer"+i+"Points").value = pointsArray[i];
+            }
+        }
+
+        function saveQuestion() {
+            saveAnswers();
+            qData.push(
+                {
+                    question: document.getElementById("question").value,
+                    answers: answersArray,
+                    points: pointsArray
+                }
+            );
+            
+            let previewSection = `
+                <div class="question-container">
+                    <h4>${document.getElementById("question").value}</h4>
+                    <ol>
+            `;
+            for (let i = 0; i <answersArray.length; i++) {
+                previewSection += `
+                    <li><abbr title="Poäng: ${pointsArray[i]}">${answersArray[i]}</abbr></li>
+                `;
+            }
+            previewSection += `
+                    </ol>
+                </div>
+            `;
+
+            console.log(previewSection);
+            document.getElementById("questionsPreview").innerHTML += previewSection;
+        }
 
 
         //Lägg inte till svarsalternativ om inputen är tom
