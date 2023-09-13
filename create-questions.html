@@ -41,11 +41,11 @@
         <div id="questionsPreview">
             <!--Previewing questions and answers here-->
         </div>
-        <a id="download"><button>Ladda ner JSON</button></a>
+        <a id="download"><button onclick="download()">Ladda ner JSON</button></a>
     </div>
 
     <script>
-        let qData = {};
+        let qData = [];
         let questionNum = 0;
         let answersArray = [];
         let pointsArray = [];
@@ -96,6 +96,7 @@
             }
 
             if (questionValue && answersArray[0] && pointsArray[0]) {
+
                 qData.push(
                 {
                     question: questionValue,
@@ -122,6 +123,7 @@
                 console.log(previewSection);
                 document.getElementById("questionsPreview").innerHTML += previewSection;
 
+                
                 clearForm();
             }
             else { alert("Information saknas"); }
@@ -148,28 +150,13 @@
                 <br>
             `;
         }
-
-        //const jsonBlob = new Blob([JSON.stringify(qData)], { type: 'application/json' });
-        //const url = URL.createObjectURL(jsonBlob);
-        //
-        //const a = document.getElementById("download");
-        //a.href = url;
-        //a.download = 'questions-data.json';
-
-        //--------Kan inte göra JSON av array, varför?--------
-
-        const jsonData = { key1: 'value1', key2: 'value2' };
-        const jsonBlob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
-        const url = URL.createObjectURL(jsonBlob);
-
-        // Create a download link
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'data.json';
-        a.textContent = 'Download JSON';
-
-        // Append the link to the DOM
-        document.body.appendChild(a);
+        
+        function download() {
+            const jsonData = JSON.stringify(qData);
+            const a = document.getElementById("download");
+            a.href = `data:application/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+            a.download = 'questions-data.json';
+        }
 
     </script>
 </body>
