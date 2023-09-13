@@ -71,32 +71,52 @@
 
         function saveQuestion() {
             saveAnswers();
-            qData.push(
+            let questionValue = document.getElementById("question").value;
+
+            for (let i = 0; i < answersArray.length; i++) {
+                if (!answersArray[i] && !pointsArray[i]) {
+                    answersArray.pop(i);
+                    pointsArray.pop(i);
+                } else if (!answersArray[i] || !pointsArray[i]) {
+                    alert("Du måste fylla i fråga och poäng för fråga "+(i+1));
+                    return
+                }
+            }
+
+            if (questionValue && answersArray[0] && pointsArray[0]) {
+                qData.push(
                 {
-                    question: document.getElementById("question").value,
+                    question: questionValue,
                     answers: answersArray,
                     points: pointsArray
                 }
-            );
-            
-            let previewSection = `
-                <div class="question-container">
-                    <h4>${document.getElementById("question").value}</h4>
-                    <ol>
-            `;
-            for (let i = 0; i <answersArray.length; i++) {
-                previewSection += `
-                    <li><abbr title="Poäng: ${pointsArray[i]}">${answersArray[i]}</abbr></li>
+                );
+                
+                let previewSection = `
+                    <div class="question-container">
+                        <h4>${questionValue}</h4>
+                        <ol>
                 `;
-            }
-            previewSection += `
-                    </ol>
-                </div>
-            `;
+                for (let i = 0; i <answersArray.length; i++) {
+                    previewSection += `
+                        <li><abbr title="Poäng: ${pointsArray[i]}">${answersArray[i]}</abbr></li>
+                    `;
+                }
+                previewSection += `
+                        </ol>
+                    </div>
+                `;
 
-            console.log(previewSection);
-            document.getElementById("questionsPreview").innerHTML += previewSection;
+                console.log(previewSection);
+                document.getElementById("questionsPreview").innerHTML += previewSection;
+
+                questionValue = "";
+                answersArray = [];
+                pointsArray = [];
+            }
         }
+
+            
 
 
         //Lägg inte till svarsalternativ om inputen är tom
