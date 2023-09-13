@@ -10,10 +10,18 @@
             width: 200px;
         }
         .answer-points { width: 50px; }
+        .question-container {
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        h4.question { margin: 0; }
+        ol { margin: 5px 0;}
     </style>
 </head>
 <body style="margin: 30px; display: flex; justify-content: space-between;">
-    <div class="right-section">
+    <div class="right-section" id="rightSection">
         <h4 style="margin-bottom: 10px;">Fråga:</h4>
         <textarea id="question" cols="30" rows="3"></textarea>
         <h4 style="margin-bottom: 10px;">Svarsalternativ:</h4>
@@ -28,15 +36,17 @@
         <button onclick="saveQuestion()" style="margin-top: 20px;">Spara fråga</button>
         <br>
     </div>
-    <div class="left-section">
+    <div class="left-section" style="width: 500px;">
         <h2>Frågor:</h2>
         <div id="questionsPreview">
             <!--Previewing questions and answers here-->
         </div>
+        <a id="download"><button>Ladda ner JSON</button></a>
     </div>
 
     <script>
-        let qData = [];
+        let qData = {};
+        let questionNum = 0;
         let answersArray = [];
         let pointsArray = [];
         let answerNum = 0;
@@ -73,12 +83,14 @@
             saveAnswers();
             let questionValue = document.getElementById("question").value;
 
-            for (let i = 0; i < answersArray.length; i++) {
+            for (let i = 0, iOff = 0; i < answersArray.length; i++) {
                 if (!answersArray[i] && !pointsArray[i]) {
-                    answersArray.pop(i);
-                    pointsArray.pop(i);
+                    answersArray.splice(i, 1);
+                    pointsArray.splice(i, 1);
+                    i--;
+                    iOff++;
                 } else if (!answersArray[i] || !pointsArray[i]) {
-                    alert("Du måste fylla i fråga och poäng för fråga "+(i+1));
+                    alert("Du måste fylla i fråga och poäng för fråga "+(i+iOff+1));
                     return
                 }
             }
@@ -94,12 +106,12 @@
                 
                 let previewSection = `
                     <div class="question-container">
-                        <h4>${questionValue}</h4>
+                        <h4 class="question">${questionValue}</h4>
                         <ol>
                 `;
                 for (let i = 0; i <answersArray.length; i++) {
                     previewSection += `
-                        <li><abbr title="Poäng: ${pointsArray[i]}">${answersArray[i]}</abbr></li>
+                        <li>(${pointsArray[i]}p) ${answersArray[i]}</li>
                     `;
                 }
                 previewSection += `
@@ -110,30 +122,55 @@
                 console.log(previewSection);
                 document.getElementById("questionsPreview").innerHTML += previewSection;
 
-                questionValue = "";
-                answersArray = [];
-                pointsArray = [];
+                clearForm();
             }
+            else { alert("Information saknas"); }
         }
 
-            
+        function clearForm() {
+            answerNum = 0;
+            answersArray = [];
+            pointsArray = [];
 
+            document.getElementById("rightSection").innerHTML = `
+                <h4 style="margin-bottom: 10px;">Fråga:</h4>
+                <textarea id="question" cols="30" rows="3"></textarea>
+                <h4 style="margin-bottom: 10px;">Svarsalternativ:</h4>
+                <div id="answersContainer">
+                    <label>1</label>
+                    <input type="text" id="answer0" class="answer">
+                    <label>Poäng:</label>
+                    <input type="number" id="answer0Points" class="answer-points">
+                </div>
+                <button onclick="addAnswer()" style="margin-top: 5px;">Lägg till svarsalternativ</button>
+                <br>
+                <button onclick="saveQuestion()" style="margin-top: 20px;">Spara fråga</button>
+                <br>
+            `;
+        }
 
-        //Lägg inte till svarsalternativ om inputen är tom
+        //const jsonBlob = new Blob([JSON.stringify(qData)], { type: 'application/json' });
+        //const url = URL.createObjectURL(jsonBlob);
+        //
+        //const a = document.getElementById("download");
+        //a.href = url;
+        //a.download = 'questions-data.json';
 
+        //--------Kan inte göra JSON av array, varför?--------
 
         const jsonData = { key1: 'value1', key2: 'value2' };
         const jsonBlob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
         const url = URL.createObjectURL(jsonBlob);
-        
+
         // Create a download link
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'questions.json';
+        a.download = 'data.json';
         a.textContent = 'Download JSON';
-        
+
         // Append the link to the DOM
         document.body.appendChild(a);
+
     </script>
 </body>
 </html>
