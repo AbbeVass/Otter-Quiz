@@ -9,14 +9,47 @@
     top: -1px;
 }
 .bar-outline {
-    border: 2px solid rgb(70, 0, 200);
+    border: 2px solid rgb(109, 42, 255);;
     border-radius: 1em;
     height: 10px;
     width: 400px;
 }
 #progressBar {
     height: 100%;
-    background-color: rgb(184, 0, 181);
+    background-color: rgb(180, 0, 180);
     border-radius: 1em;
     width: 0;
+}
+
+.question-container {
+    width: 600px;
+}
+.answer-container {
+    border: 2px solid #aa82ff;
+    border-radius: 1em;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.checkmark,
+.answer-text {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+}
+.checkmark {
+    width: 11px;
+    height: 11px;
+    border: 2px solid #aa82ff;
+    padding: 2px;
+    border-radius: 1em;
+    top: 2px;
+    right: 2px;
+}
+.answer-text {
+    width: 93%;
+    margin-left: 10px;
+    bottom: 2px;
+    word-wrap: break-word;
 }

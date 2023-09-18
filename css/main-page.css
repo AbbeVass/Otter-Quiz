@@ -3,6 +3,10 @@
 }
 
 .headline {
-    margin: 50px 0px 30px;
+    margin-bottom: 30px;
     font-weight: bolder;
+}
+
+.start-btn {
+    cursor: pointer;
 }
