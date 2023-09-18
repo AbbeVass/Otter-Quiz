@@ -10,15 +10,19 @@
 <body>
   <main>
     <div class="progress">
-      <p class="text"></p>
-      <div class="bar"></div>
+      <p class="text" id="progressText"></p>
+      <div class="bar-container">
+        <div class="bar-outline">
+          <div id="progressBar"></div>
+        </div>
+      </div>
     </div>
     <!--img-->
     <div class="question-container">
       <h2 class="question"></h2>
       <div class="answers">
       </div>
-      <button class="continue-btn"></button>
+      <button class="continue-btn" onclick="nextQuestion()">Fortsätt</button>
     </div>
   </main>
   <script src="script.js"></script>

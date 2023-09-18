@@ -1,0 +1,22 @@
+.progress .text,
+.bar-container {
+    display: inline-block;
+}
+.progress .text {
+    margin-right: 5px;
+    font-size: 14px;
+    position: relative;
+    top: -1px;
+}
+.bar-outline {
+    border: 2px solid rgb(70, 0, 200);
+    border-radius: 1em;
+    height: 10px;
+    width: 400px;
+}
+#progressBar {
+    height: 100%;
+    background-color: rgb(184, 0, 181);
+    border-radius: 1em;
+    width: 0;
+}
