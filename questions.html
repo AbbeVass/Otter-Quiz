@@ -18,11 +18,17 @@
       </div>
     </div>
     <!--img-->
-    <div class="question-container">
+    <div class="question-container" id="content">
       <h2 id="question"></h2>
       <div id="answers">
       </div>
-      <button class="continue-btn" onclick="if (btnWorks) {nextQuestion()}">Fortsätt</button>
+      <div class="btn-container">
+        <button class="continue-btn" id="continueBtn" onclick="
+          if (btnWorks) {
+            points += Number(qstData[currentQuestion-1].points[choosenAnswer]);
+            nextQuestion();
+          }">Fortsätt</button>
+      </div>
     </div>
   </main>
   <script src="script.js"></script>
