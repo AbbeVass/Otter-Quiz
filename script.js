@@ -1,5 +1,5 @@
 let qstData;
-let currentQuestion = 3;
+let currentQuestion = 0;
 let btnWorks = false;
 let choosenAnswer = -1;
 let points = 0;
@@ -44,9 +44,12 @@ function nextQuestion() {
         }
 
     } else {
-        document.getElementById("content").innerHTML = `
-            <h1>Du är inte värd ${points} uttrar!<h1>
+        const container = document.getElementById("content");
+        container.innerHTML = `
+            <h1 class="result-text">Du är värd ${points} uttrar!</h1>
+            <button class="continue-btn end-btn" type="submit" onclick="window.location.href = 'index.html';">Till startsidan</button>
         `;
+        container.className = "result-content";
     }
 }
 
