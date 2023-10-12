@@ -20,10 +20,12 @@ function nextQuestion() {
         currentQuestion++;
         choosenAnswer = -1;
 
+        // Update pregress bar
         const prgBar = document.getElementById("progressBar");
         prgBar.style.width = (currentQuestion * 100) / qstData.length + "%";
         document.getElementById("progressText").innerHTML = currentQuestion + "/" + qstData.length;
 
+        // Change the question (headline)
         const qst = qstData[currentQuestion - 1];
         document.getElementById("question").innerHTML = qst.question;
 
@@ -31,6 +33,7 @@ function nextQuestion() {
         const answersContainer = document.getElementById("answers");
         answersContainer.innerHTML = "";
 
+        // Add answers
         for (let i = 0; i < qst.answers.length; i++) {
             answersContainer.innerHTML += `
                 <div class="answer-container" id="answer${i}">
@@ -43,7 +46,7 @@ function nextQuestion() {
             document.getElementById("answer" + i).addEventListener("click", createClickListener(i));
         }
 
-    } else {
+    } else { // Result page
         const container = document.getElementById("content");
         container.innerHTML = `
             <h1 class="result-text">Du är värd ${points} uttrar!</h1>
