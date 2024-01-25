@@ -4,7 +4,8 @@ let btnWorks = false;
 let choosenAnswer = -1;
 let points = 0;
 
-fetch('question-data.json')
+let quizNum = 1;
+fetch(`quizes/questions-data${quizNum}.json`)
     .then(response => response.json())
     .then(data => {
         qstData = data;

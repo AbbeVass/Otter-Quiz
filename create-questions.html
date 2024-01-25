@@ -122,7 +122,7 @@
                 console.log(previewSection);
                 document.getElementById("questionsPreview").innerHTML += previewSection;
 
-                
+                document.querySelector("h2").innerHTML = `Frågor: (${qData.length})`
                 clearForm();
             }
             else { alert("Information saknas"); }
