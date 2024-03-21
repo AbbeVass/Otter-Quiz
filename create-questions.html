@@ -151,7 +151,7 @@
         }
         
         function download() {
-            const jsonData = JSON.stringify(qData);
+            const jsonData = JSON.stringify(qData, null, 2);
             const a = document.getElementById("download");
             a.href = `data:application/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
             a.download = 'questions-data.json';
