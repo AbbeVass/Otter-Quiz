@@ -1,0 +1,13 @@
+.answer {
+    margin-bottom: 7px;
+    width: 200px;
+}
+.answer-points { width: 50px; }
+.question-container {
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+h4.question { margin: 0; }
+ol { margin: 5px 0;}
